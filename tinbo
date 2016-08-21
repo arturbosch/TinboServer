@@ -1,0 +1,2 @@
+#!/bin/sh
+java -jar TinboServer-1.0.M1.jar
