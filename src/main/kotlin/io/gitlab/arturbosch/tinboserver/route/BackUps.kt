@@ -1,27 +1,41 @@
 package io.gitlab.arturbosch.tinboserver.route
 
+import io.gitlab.arturbosch.tinboserver.HomeFolder
 import org.jetbrains.ktor.application.call
+import org.jetbrains.ktor.application.respondWrite
 import org.jetbrains.ktor.http.ContentType
-import org.jetbrains.ktor.http.respondText
+import org.jetbrains.ktor.http.MultiPartData
+import org.jetbrains.ktor.http.PartData
+import org.jetbrains.ktor.http.contentType
+import org.jetbrains.ktor.http.isMultipart
 import org.jetbrains.ktor.routing.Routing
-import org.jetbrains.ktor.routing.get
-import org.json.simple.JSONObject
+import org.jetbrains.ktor.routing.post
 
 /**
  * @author Artur Bosch
  */
 fun Routing.backup() {
-	get("/backup") {
-		onSuccess { println("Success!!") }
-		onFinish { println("Finished!!") }
-		call.respondText(ContentType.Application.Json, buildJson())
-	}
-}
+	post("/backup") {
+		val multipart = call.request.content.get<MultiPartData>()
 
-private fun buildJson(): String {
-	return JSONObject().apply {
-		put("name", "Artur")
-		put("age", "25")
-		put("favorite_language", "Kotlin")
-	}.toJSONString()
+		call.response.contentType(ContentType.Text.Plain)
+		call.respondWrite {
+			if (!call.request.isMultipart()) {
+				appendln("Not a multipart request")
+			} else {
+				multipart.parts.forEach { part ->
+					when (part) {
+						is PartData.FormItem -> {
+							println("Form field: ${part.partName} = ${part.value}")
+						}
+						is PartData.FileItem -> {
+							println("File field: ${part.partName} -> ${part.originalFileName} of ${part.contentType}")
+							HomeFolder.newFile(part.originalFileName ?: "backup.zip", part.streamProvider.invoke())
+						}
+					}
+					part.dispose()
+				}
+			}
+		}
+	}
 }
