@@ -12,6 +12,8 @@ import java.nio.file.StandardCopyOption
  */
 object HomeFolder {
 
+	const val USERS = "users"
+
 	private val mainDir = "TinboServer"
 	private val homeDir = System.getProperty("user.home") + File.separator + mainDir
 	private val homePath = Paths.get(homeDir)
@@ -27,15 +29,19 @@ object HomeFolder {
 		Files.copy(content, newFile, StandardCopyOption.REPLACE_EXISTING)
 	}
 
-	private fun checkAndCreate(path: Path, createFile: (Path) -> Path): Path {
-		if (Files.notExists(path))
-			createFile.invoke(path)
-		return path
+	private fun checkAndCreate(subPath: String, createFile: (Path) -> Path): Path {
+		val newFile = get().resolve(subPath)
+		if (Files.notExists(newFile))
+			createFile.invoke(newFile)
+		return newFile
 	}
 
-	fun getDirectory(subPathInTinboDir: String): Path {
-		val newDir = get().resolve(subPathInTinboDir)
-		return checkAndCreate(newDir, { newDir -> Files.createDirectories(newDir) })
+	fun getDirectory(subPath: String): Path {
+		return checkAndCreate(subPath, { newDir -> Files.createDirectories(newDir) })
+	}
+
+	fun getFile(subPath: String): Path {
+		return checkAndCreate(subPath, { newFile -> Files.createFile(newFile) })
 	}
 
 }
