@@ -13,7 +13,7 @@ import org.jetbrains.ktor.routing.get
 class TinboServer {
 
 	fun start() {
-		embeddedNettyServer(8080) {
+		embeddedNettyServer(8088) {
 			hello()
 			backup()
 			get("/test") {
