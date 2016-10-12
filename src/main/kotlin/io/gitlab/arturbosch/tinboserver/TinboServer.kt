@@ -10,9 +10,10 @@ import org.jetbrains.ktor.routing.get
 /**
  * @author Artur Bosch
  */
-class TinboServer {
+object TinboServer {
 
-	fun start() {
+	@JvmStatic
+	fun main(args: Array<String>) {
 		embeddedNettyServer(8088) {
 			hello()
 			backup()
@@ -26,6 +27,3 @@ class TinboServer {
 
 }
 
-fun main(args: Array<String>) {
-	TinboServer().start()
-}

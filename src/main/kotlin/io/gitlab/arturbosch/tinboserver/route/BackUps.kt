@@ -6,10 +6,10 @@ import org.jetbrains.ktor.application.call
 import org.jetbrains.ktor.application.respondWrite
 import org.jetbrains.ktor.auth.basicAuthenticationCredentials
 import org.jetbrains.ktor.http.ContentType
-import org.jetbrains.ktor.http.MultiPartData
-import org.jetbrains.ktor.http.PartData
-import org.jetbrains.ktor.http.contentType
-import org.jetbrains.ktor.http.isMultipart
+import org.jetbrains.ktor.request.MultiPartData
+import org.jetbrains.ktor.request.PartData
+import org.jetbrains.ktor.request.isMultipart
+import org.jetbrains.ktor.response.contentType
 import org.jetbrains.ktor.routing.Routing
 import org.jetbrains.ktor.routing.post
 
