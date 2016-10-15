@@ -1,4 +1,4 @@
-package io.gitlab.arturbosch.tinboserver
+package io.gitlab.arturbosch.tinboserver.config
 
 import java.io.File
 import java.io.InputStream

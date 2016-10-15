@@ -9,7 +9,8 @@ Initial prototype of a storage server for TiNBo.
 
 ## Endpoints
 
-- /backup - accepts multipart post requests (Backup-Zips)
+- '/'       - Displays home site with note/task entries loaded from tinbo
+- /backup   - Accepts multipart post requests (Backup-Zips - backup remote command from tinbo)
 
 ## Changelog
 ### 1.0.M1

@@ -1,6 +1,6 @@
 package io.gitlab.arturbosch.tinboserver.users
 
-import io.gitlab.arturbosch.tinboserver.HomeFolder
+import io.gitlab.arturbosch.tinboserver.config.HomeFolder
 import io.gitlab.arturbosch.tinboserver.internal.InvalidServerConfigException
 import java.io.IOException
 import java.nio.file.Files

@@ -1,6 +1,6 @@
 package io.gitlab.arturbosch.tinboserver.route
 
-import io.gitlab.arturbosch.tinboserver.HomeFolder
+import io.gitlab.arturbosch.tinboserver.config.HomeFolder
 import io.gitlab.arturbosch.tinboserver.users.withValidCredentials
 import org.jetbrains.ktor.application.call
 import org.jetbrains.ktor.application.respondWrite

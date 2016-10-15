@@ -10,10 +10,7 @@ import org.json.simple.JSONObject
 /**
  * @author Artur Bosch
  */
-fun Routing.hello() {
-	get("/") {
-		call.respondText(ContentType.Text.Html, "Hello, Tinbo!")
-	}
+fun Routing.json() {
 	get("/json") {
 		onSuccess { println("Success!!") }
 		onFinish { println("Finished!!") }
