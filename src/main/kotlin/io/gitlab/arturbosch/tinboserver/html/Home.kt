@@ -12,10 +12,8 @@ import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.routing.Routing
 import org.jetbrains.ktor.routing.get
+import org.slf4j.LoggerFactory
 import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.util.stream.Collectors
 
 /**
  * @author Artur Bosch
@@ -29,11 +27,16 @@ enum class Content {
 }
 
 object HomeCss {
+	private val logger = LoggerFactory.getLogger(HomeCss.javaClass.simpleName)
 	private val css = lazy {
 		try {
-			Files.lines(Paths.get(HomeCss::class.java.getResource("/styles/home.css").path)).
-					map { it.trim() }.collect(Collectors.joining())
+			HomeCss::class.java.getResourceAsStream("/styles/home.css")
+					.bufferedReader()
+					.readLines()
+					.map(String::trim)
+					.joinToString("")
 		} catch (error: IOException) {
+			logger.error("Could not load css from resources!")
 			""
 		}
 	}
