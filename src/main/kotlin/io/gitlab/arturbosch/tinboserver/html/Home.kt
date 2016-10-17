@@ -1,10 +1,14 @@
 package io.gitlab.arturbosch.tinboserver.html
 
 import io.gitlab.arturbosch.tinboserver.data.TinboConnector
+import kotlinx.html.UL
+import kotlinx.html.a
 import kotlinx.html.li
-import kotlinx.html.p
 import kotlinx.html.ul
+import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.call
+import org.jetbrains.ktor.features.feature
+import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.routing.Routing
 import org.jetbrains.ktor.routing.get
@@ -18,7 +22,11 @@ import java.util.stream.Collectors
  */
 
 @location("/")
-class Home
+class Home(val tab: Content = Content.Notes)
+
+enum class Content {
+	Notes, Tasks, Timers
+}
 
 object HomeCss {
 	private val css = lazy {
@@ -35,16 +43,37 @@ object HomeCss {
 
 fun Routing.index() {
 	location<Home> {
-
 		get {
-			val notes = TinboConnector.retrieveNotes()
-			val tasks = TinboConnector.retrieveTasks()
 			call.respondHtml {
-				p { +"Notes:" }
-				ul("list-group") { notes.forEach { li("list-group-item") { +it.content } } }
-				p { +"Tasks:" }
-				ul("list-group") { tasks.forEach { li("list-group-item") { +it.content } } }
+				val value = Content.valueOf(call.parameters[Home::tab.name] ?: Content.Notes.name)
+				ul("nav nav-tabs") {
+					tabLink(application, value, Content.Notes)
+					tabLink(application, value, Content.Tasks)
+					tabLink(application, value, Content.Timers)
+				}
+
+				val entries = when (value) {
+					Content.Notes -> TinboConnector.retrieveNotes()
+					Content.Tasks -> TinboConnector.retrieveTasks()
+					Content.Timers -> TinboConnector.retrieveTimers()
+				}
+
+				ul("list-group") { entries.forEach { li("list-group-item") { +it.content } } }
 			}
 		}
 	}
+}
+
+private fun UL.tabLink(application: Application, value: Content, content: Content) {
+	val same = value == content
+	li(if (same) "active" else "") {
+		role = "presentation"
+		a("#") {
+			if (!same) {
+				href = application.feature(Locations).href(Home(content))
+			}
+			+content.name
+		}
+	}
+
 }

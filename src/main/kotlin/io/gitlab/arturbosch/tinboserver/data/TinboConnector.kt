@@ -19,6 +19,10 @@ object TinboConnector {
 		return extract("TiNBo/notes/Notes")
 	}
 
+	fun retrieveTimers(): List<Entry> {
+		return extract("TiNBo/timers/Data")
+	}
+
 	private fun extract(name: String): List<Entry> {
 		val home = HomeFolder.get().toAbsolutePath()
 		val userDir = home.subpath(0, home.nameCount - 1)
