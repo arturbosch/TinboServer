@@ -12,9 +12,7 @@ import org.json.simple.JSONObject
  */
 fun Routing.json() {
 	get("/json") {
-		onSuccess { println("Success!!") }
-		onFinish { println("Finished!!") }
-		call.respondText(ContentType.Application.Json, buildJson())
+		call.respondText(buildJson(), ContentType.Application.Json)
 	}
 }
 

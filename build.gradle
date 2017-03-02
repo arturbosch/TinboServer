@@ -1,6 +1,6 @@
 buildscript {
-	ext.kotlin_version = '1.0.6'
-	ext.ktor_version = '0.2.4'
+	ext.kotlin_version = '1.1.0'
+	ext.ktor_version = '0.3.0'
 
 	repositories {
 		mavenCentral()
@@ -31,9 +31,9 @@ version '1.0.M1'
 repositories {
 	mavenCentral()
 	jcenter()
-	maven {
-		url "http://dl.bintray.com/kotlin/ktor"
-	}
+	maven { url "http://dl.bintray.com/kotlin/ktor" }
+	maven { url "http://dl.bintray.com/kotlin/kotlinx.html" }
+	maven { url "http://dl.bintray.com/kotlin/kotlin-eap-1.1" }
 }
 
 dependencies {
@@ -41,7 +41,13 @@ dependencies {
 	compile "org.jetbrains.ktor:ktor-core:$ktor_version"
 	compile "org.jetbrains.ktor:ktor-locations:$ktor_version"
 	compile "org.jetbrains.ktor:ktor-netty:$ktor_version"
-	compile "org.jetbrains.kotlinx:kotlinx-support-jdk8:0.3"
-	compile "org.jetbrains.kotlinx:kotlinx.html.jvm:0.5.11"
+	compile 'org.jetbrains.kotlinx:kotlinx-html-jvm:0.6.2'
+	compile "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:0.12"
 	testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+kotlin {
+	experimental {
+		coroutines "enable"
+	}
 }

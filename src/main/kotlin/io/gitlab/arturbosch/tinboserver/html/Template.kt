@@ -4,11 +4,13 @@ import kotlinx.html.BODY
 import kotlinx.html.DIV
 import kotlinx.html.ScriptType
 import kotlinx.html.body
+import kotlinx.html.classes
 import kotlinx.html.div
 import kotlinx.html.h1
 import kotlinx.html.head
 import kotlinx.html.html
 import kotlinx.html.nav
+import kotlinx.html.role
 import kotlinx.html.script
 import kotlinx.html.stream.appendHTML
 import kotlinx.html.style
@@ -22,11 +24,11 @@ import org.jetbrains.ktor.response.respondText
  * @author Artur Bosch
  */
 
-fun ApplicationCall.respondHtml(block: DIV.() -> Unit): Nothing {
+suspend fun ApplicationCall.respondHtml(block: DIV.() -> Unit) {
 	val html = homePage {
 		block()
 	}
-	respondText(ContentType.Text.Html, html)
+	respondText(html, ContentType.Text.Html)
 }
 
 private fun homePage(title: String = "Welcome to TinboServer", block: DIV.() -> Unit): String {

@@ -3,8 +3,8 @@ package io.gitlab.arturbosch.tinboserver.route
 import io.gitlab.arturbosch.tinboserver.config.HomeFolder
 import io.gitlab.arturbosch.tinboserver.users.withValidCredentials
 import org.jetbrains.ktor.application.call
-import org.jetbrains.ktor.application.respondWrite
 import org.jetbrains.ktor.auth.basicAuthenticationCredentials
+import org.jetbrains.ktor.content.respondWrite
 import org.jetbrains.ktor.http.ContentType
 import org.jetbrains.ktor.request.MultiPartData
 import org.jetbrains.ktor.request.PartData

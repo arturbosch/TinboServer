@@ -1,11 +1,11 @@
 package io.gitlab.arturbosch.tinboserver.data
 
 import io.gitlab.arturbosch.tinboserver.config.HomeFolder
-import kotlinx.support.jdk8.streams.toList
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Paths
+import kotlin.streams.toList
 
 /**
  * @author Artur Bosch

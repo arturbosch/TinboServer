@@ -4,6 +4,7 @@ import io.gitlab.arturbosch.tinboserver.data.TinboConnector
 import kotlinx.html.UL
 import kotlinx.html.a
 import kotlinx.html.li
+import kotlinx.html.role
 import kotlinx.html.ul
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.call

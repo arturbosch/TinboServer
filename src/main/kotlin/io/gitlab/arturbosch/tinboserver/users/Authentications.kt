@@ -13,7 +13,7 @@ import org.jetbrains.ktor.pipeline.PipelineContext
  * @author Artur Bosch
  */
 
-fun PipelineContext<ApplicationCall>.withValidCredentials(body: PipelineContext<ApplicationCall>.(ApplicationCall) -> Unit) {
+suspend fun PipelineContext<ApplicationCall>.withValidCredentials(body: suspend PipelineContext<ApplicationCall>.(ApplicationCall) -> Unit) {
 	val credentials = call.request.basicAuthenticationCredentials()
 	val principal = authenticate(credentials)
 	if (principal != null) {
