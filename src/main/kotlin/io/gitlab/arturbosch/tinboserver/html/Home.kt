@@ -7,7 +7,7 @@ import kotlinx.html.li
 import kotlinx.html.ul
 import org.jetbrains.ktor.application.Application
 import org.jetbrains.ktor.application.call
-import org.jetbrains.ktor.features.feature
+import org.jetbrains.ktor.application.feature
 import org.jetbrains.ktor.locations.Locations
 import org.jetbrains.ktor.locations.location
 import org.jetbrains.ktor.routing.Routing
